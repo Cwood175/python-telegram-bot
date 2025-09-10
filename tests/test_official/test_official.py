@@ -63,10 +63,12 @@ def test_check_method(tg_method: TelegramMethod) -> None:
     - No unexpected parameters
     - Extra parameters should be keyword only
     """
+    from types import FunctionType
     ptb_method: FunctionType | None = getattr(telegram.Bot, tg_method.method_name, None)
     assert ptb_method, f"Method {tg_method.method_name} not found in telegram.Bot"
 
     # Check arguments based on source
+    assert ptb_method, f"Method {tg_method.method_name} not found in telegram.Bot"
     sig = inspect.signature(ptb_method, follow_wrapped=True)
     checked = []
 
@@ -140,6 +142,8 @@ def test_check_object(tg_class: TelegramClass) -> None:
     obj = getattr(telegram, tg_class.class_name)
 
     # Check arguments based on source. Makes sure to only check __init__'s signature & nothing else
+    assert isinstance(obj, type), f"{tg_class.class_name} is not a class"
+    assert hasattr(obj, "__init__"), f"{tg_class.class_name} does not have __init__ method"
     sig = inspect.signature(obj.__init__, follow_wrapped=True)
 
     checked = set()
@@ -157,6 +161,8 @@ def test_check_object(tg_class: TelegramClass) -> None:
         ptb_param = sig.parameters.get(field)
         assert ptb_param is not None, f"Attribute {field} not found in {obj.__name__}"
 
+        # Now check if the parameter is required or not
+        assert ptb_param is not None, f"Attribute {field} not found in {obj.__name__}"
         # Now check if the parameter is required or not
         assert check_required_param(tg_parameter, ptb_param, obj.__name__), (
             f"Param {ptb_param.name!r} of {obj.__name__!r} requirement mismatch"
