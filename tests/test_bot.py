@@ -4535,7 +4535,7 @@ class TestBotWithRequest:
             await Bot(bot.token).do_api_request("unknown_endpoint")
 
     @pytest.mark.filterwarnings("ignore::telegram.warnings.PTBUserWarning")
-    @pytest.mark.parametrize("return_type", [Message, None])
+    @pytest.mark.parametrize("return_type", [bool, None])
     async def test_do_api_request_basic_and_files(self, bot, chat_id, return_type):
         result = await bot.do_api_request(
             "send_document",
