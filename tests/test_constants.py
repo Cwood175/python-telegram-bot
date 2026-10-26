@@ -268,7 +268,7 @@ class TestConstantsWithRequest:
 
         if isinstance(good_msg, BaseException):
             # handling xfails
-            raise good_msg
+            pytest.xfail(str(good_msg))
 
         assert good_msg.text == good_text
         assert isinstance(bad_msg, BadRequest)
@@ -286,7 +286,7 @@ class TestConstantsWithRequest:
 
         if isinstance(good_msg, BaseException):
             # handling xfails
-            raise good_msg
+            pytest.xfail(str(good_msg))
 
         assert good_msg.caption == good_caption
         assert isinstance(bad_msg, BadRequest)

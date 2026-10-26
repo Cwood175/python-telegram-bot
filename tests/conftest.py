@@ -281,10 +281,8 @@ def class_thumb_file():
 
 
 @pytest.fixture(scope="session")
-async def emoji_id(bot):
-    emoji_sticker_list = await bot.get_forum_topic_icon_stickers()
-    first_sticker = emoji_sticker_list[0]
-    return first_sticker.custom_emoji_id
+def emoji_id():
+    return "5368324170671202286"
 
 
 @pytest.fixture

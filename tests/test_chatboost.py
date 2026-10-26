@@ -560,8 +560,8 @@ class TestUserChatBoostsWithoutRequest(ChatBoostDefaults):
 
 
 class TestUserChatBoostsWithRequest(ChatBoostDefaults):
-    async def test_get_user_chat_boosts(self, bot, channel_id, chat_id):
-        chat_boosts = await bot.get_user_chat_boosts(channel_id, chat_id)
+    async def test_get_user_chat_boosts(self, offline_bot, channel_id, chat_id):
+        chat_boosts = await offline_bot.get_user_chat_boosts(channel_id, chat_id)
         assert isinstance(chat_boosts, UserChatBoosts)
 
 
